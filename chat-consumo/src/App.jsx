@@ -1,4 +1,4 @@
-import { useState,useRef } from 'react'
+
 import {io} from "socket.io-client"
 import './App.css'
 
@@ -13,15 +13,16 @@ socket.on("message",(body)=>{
 
 function App() {
 
-  socket.on("connect", () => {
-    console.log(socket.id);
-  });
-
   const handleSubmit=(event)=>{
     event.preventDefault()
     if(!socket.connected) return
-    const msg=document.getElementById('msg').value
+    const input =document.getElementById('msg')
+    const msg=input.value
+    if(msg=='')return
     socket.emit('message',msg)
+    const ul =document.getElementById('messages')
+    ul.insertAdjacentHTML("beforeend",`<li class="lime">${msg}</li>`)
+    input.value=""
   }
 
   return (
