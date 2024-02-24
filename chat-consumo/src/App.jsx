@@ -4,7 +4,7 @@ import './App.css'
 
 
 
-const socket = io("https://chat-nodejs-dev-xfqa.2.us-1.fl0.io")
+const socket = io("https://chat-nodejs-dev-xfqa.2.us-1.fl0.io/chat")
 socket.on("message",(body)=>{
   const ul =document.getElementById('messages')
   ul.insertAdjacentHTML("beforeend",`<li>${body.body}</li>`)
