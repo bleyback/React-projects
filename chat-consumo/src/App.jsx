@@ -4,7 +4,7 @@ import './App.css'
 
 
 
-const socket = io("https://chat-nodejs-dev-xfqa.2.us-1.fl0.io/chat")
+const socket = io("https://chat-nodejs-dev-xfqa.2.us-1.fl0.io")
 socket.on("message",(body)=>{
   const ul =document.getElementById('messages')
   ul.insertAdjacentHTML("beforeend",`<li>${body.body}</li>`)
@@ -15,6 +15,7 @@ function App() {
 
   const handleSubmit=(event)=>{
     event.preventDefault()
+    console.log(socket.connected)
     if(!socket.connected) return
     const input =document.getElementById('msg')
     const msg=input.value
