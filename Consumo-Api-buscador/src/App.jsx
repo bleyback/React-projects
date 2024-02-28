@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Movies } from './components/Movies.jsx'
-const ulrMovies='https://node-dev-dxzb.2.us-1.fl0.io/movies'
+const ulrMovies='https://chat-nodejs-dev-xfqa.2.us-1.fl0.io/movies'
 import './App.css'
 
 export function useMovies(){
