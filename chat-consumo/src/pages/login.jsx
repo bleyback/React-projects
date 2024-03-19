@@ -3,7 +3,7 @@ import {useState,useEffect} from 'react'
 import Cookies from 'js-cookie';
 
 
-const Url="http://localhost:1234/log/login"
+const Url="https://chat-nodejs-dev-xfqa.2.us-1.fl0.io/log/register"
 function Login (){
     const [cookieValue, setCookieValue] = useState('');
     const [req,setReq]=useState('')
