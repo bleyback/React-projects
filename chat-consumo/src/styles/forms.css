@@ -1,0 +1,54 @@
+/* Estilo para el contenedor del formulario */
+.Register{
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container {
+    width: 80vh;
+    max-width: 400px; /* Ancho máximo del formulario */
+    margin: 0 auto; /* Centrar el formulario en la página */
+    padding: 20px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde del contenedor */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+  /* Estilo para los campos de entrada */
+.form-group {
+    margin-bottom: 20px; /* Espaciado entre grupos de campos */
+}
+
+.form-group label {
+    display: block; /* Mostrar la etiqueta en una línea separada */
+    margin-bottom: 8px; /* Espaciado inferior */
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%; /* Ancho completo del campo de entrada */
+    max-width: 300px;
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde del campo */
+    border-radius: 3px; /* Bordes redondeados */
+}
+
+  /* Estilo para el botón de envío */
+.form-group button[type="submit"] {
+    background-color: #007bff; /* Color de fondo del botón */
+    color: #fff; /* Color del texto */
+    padding: 10px 20px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 3px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+}
+
+.form-group button[type="submit"]:hover {
+    background-color: #0056b3; /* Cambiar color de fondo al pasar el ratón */
+}
+a{
+    color: red;
+    padding: 15px;
+}

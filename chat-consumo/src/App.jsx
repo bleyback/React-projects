@@ -1,43 +1,19 @@
+import React from 'react';
+import { BrowserRouter,Routes,Route} from 'react-router-dom';
+import Chat from './pages/chat.jsx';
+import Login from './pages/login.jsx';
+import Register from './pages/register.jsx';
 
-import {io} from "socket.io-client"
-import './App.css'
+function App  (){
+    return (
+    <BrowserRouter>
+        <Routes>
+            <Route path="/login" element={<Login/>} />
+            <Route path="/register" element={<Register/>} />
+            <Route path="/" element={<Chat/>} />
+        </Routes>
+    </BrowserRouter>
+    );
+};
 
-
-
-const socket = io("https://chat-nodejs-dev-xfqa.2.us-1.fl0.io")
-socket.on("message",(body)=>{
-  const ul =document.getElementById('messages')
-  ul.insertAdjacentHTML("beforeend",`<li>${body.body}</li>`)
-  console.log(body)
-})
-
-function App() {
-
-  const handleSubmit=(event)=>{
-    event.preventDefault()
-    console.log(socket.connected)
-    if(!socket.connected) return
-    const input =document.getElementById('msg')
-    const msg=input.value
-    if(msg=='')return
-    socket.emit('message',msg)
-    const ul =document.getElementById('messages')
-    ul.insertAdjacentHTML("beforeend",`<li class="lime">${msg}</li>`)
-    input.value=""
-  }
-
-  return (
-    <>
-      <div className='chat'>
-        <ul id="messages">
-        </ul>
-        <form action="" onSubmit={handleSubmit}>
-          <input type="text" id="msg" placeholder='Type a message'/>
-          <button>Enviar</button>
-        </form>
-      </div>
-    </>
-  )
-}
-
-export default App
+export default App;

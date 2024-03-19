@@ -1,14 +1,22 @@
 #root{
   color-scheme: dark light;
 }
+
 body{
   background-color: black;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
-  display: grid;
-  place-content: center;
-  grid-template-rows: 1fr;
-  height: 90vh;
   color: aliceblue;
+  height: 98vh;
+  
+  display: flex;
+  justify-content: center;
+}
+
+main{
+  height: 98vh;
+  width: 100vh;
+  display: flex;
+  justify-content: center;
 }
 .chat{
   border: 1px solid #ccc;
@@ -17,11 +25,9 @@ body{
   width: 340px;
   height: 100%;
   position: relative;
-  
-
 }
 
-form{
+.chatform{
   bottom: 0;
   display: flex;
   justify-content: center;
@@ -29,6 +35,7 @@ form{
   height: 36px;
   padding: 5px 0px 5px 0px;
   position:absolute;
+  gap: 1rem;
   right: 0;
 }
 ul{
