@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import '../styles/forms.css'
+import { useNavigate } from 'react-router-dom';
 
 const Url="https://chat-nodejs-dev-xfqa.2.us-1.fl0.io/log/register"
 function Register (){
     const [req,setReq]=useState('')
     const [responseData, setResponseData] = useState(null);
-
+    const navigate=useNavigate()
     const handleRegister= async (event)=>{
         event.preventDefault()
         const {username,email,password}= Object.fromEntries(new window.FormData(event.target) )
@@ -60,6 +61,9 @@ function Register (){
                                 <a>{req}</a>
                             ): (<></>)
                         }
+                        </div>
+                        <div className="form-group">
+                            <button onClick={e=>navigate("/")}>Login</button>
                         </div>
                     </form>
                 </div>

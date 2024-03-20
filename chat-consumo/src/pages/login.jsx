@@ -1,52 +1,31 @@
 import React from 'react';
 import {useState,useEffect} from 'react'
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
-
-
-const Url="https://chat-nodejs-dev-xfqa.2.us-1.fl0.io/log/login"
 function Login (){
-    const [cookieValue, setCookieValue] = useState('');
+    const {signup,isAuthenticated,user}=useAuth()
     const [req,setReq]=useState('')
+    const navigate=useNavigate()
+    
+    useEffect(()=>{
+        if(isAuthenticated) navigate('/chat')
+    },[isAuthenticated])
 
     const handleLog =async (event)=>{
         event.preventDefault()
         const {email,password}= Object.fromEntries(new window.FormData(event.target) )
         if(!email || !password) return setReq("LLena todo los campos")
         setReq("")
-        
+        const user= {email:email,password:password}
         try {
-            const response = await fetch(Url, {
-            method: 'POST', // Método de la solicitud
-            headers: {
-              'Content-Type': 'application/json' // Tipo de contenido del cuerpo
-            },
-            body: JSON.stringify({ 
-                email:email,
-                password:password
-            }),credentials: 'include'
-            },);
-
-            const data = await response.json(); // Convertir la respuesta a JSON
-            console.log(data)
+            signup(user);
+            setReq("Datos incorrectos")
         } catch (error) {
             console.error('Error al realizar la solicitud:', error);
         }
     }
 
-    const mostrarCookie= async()=>{
-        try {
-            const response = await fetch("https://chat-nodejs-dev-xfqa.2.us-1.fl0.io/log/profile", {
-            method: 'GET', // Método de la solicitud
-        });
-
-            const data = await response.json(); // Convertir la respuesta a JSON
-    
-            console.log(data)
-        } catch (error) {
-            console.error('Error al realizar la solicitud:', error);
-        }
-
-    }
     return(
         <>
             <div className="Register">
@@ -68,9 +47,11 @@ function Login (){
                             ): (<></>)
                         }
                         </div>
+                        <div className="form-group">
+                            <button onClick={e=>navigate("/register")}>Registrarte</button>
+                        </div>
                     </form>
                 </div>
-                <button onClick={mostrarCookie}>mostrar cookie</button>
             </div>
         </>
     )

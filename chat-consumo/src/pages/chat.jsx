@@ -1,6 +1,6 @@
 import {io} from "socket.io-client"
 import '../styles/App.css'
-
+import { useAuth } from '../context/AuthContext';
 
 
 const socket = io("https://chat-nodejs-dev-xfqa.2.us-1.fl0.io")
@@ -11,6 +11,8 @@ socket.on("message",(body)=>{
 })
 
 const  Chat= () =>{
+  const {isAuthenticated,user}=useAuth()
+  console.log(user,isAuthenticated)
 
   const handleSubmit=(event)=>{
     event.preventDefault()
