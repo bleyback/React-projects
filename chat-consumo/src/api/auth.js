@@ -1,5 +1,5 @@
 
-const Url="http://localhost:1234/log"
+const Url="https://chat-nodejs-dev-xfqa.2.us-1.fl0.io/log"
 
 
 export const loginRequest = user=>  fetch( `${Url}/login`, {
