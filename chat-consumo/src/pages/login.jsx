@@ -1,10 +1,10 @@
 import React from 'react';
 import {useState,useEffect} from 'react'
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link} from 'react-router-dom';
 
 function Login (){
-    const {signup,isAuthenticated,user}=useAuth()
+    const {signin,isAuthenticated}=useAuth()
     const [req,setReq]=useState('')
     const navigate=useNavigate()
     
@@ -19,7 +19,7 @@ function Login (){
         setReq("")
         const user= {email:email,password:password}
         try {
-            const res = await signup(user);
+            const res = await signin(user);
             if (res) setReq(res)
         } catch (error) {
             console.error('Error al realizar la solicitud:', error);
@@ -48,7 +48,7 @@ function Login (){
                         }
                         </div>
                         <div className="form-group">
-                            <button onClick={e=>navigate("/register")}>Registrarte</button>
+                            <Link to="/register"> Sign up</Link>
                         </div>
                     </form>
                 </div>

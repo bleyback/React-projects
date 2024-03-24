@@ -1,35 +1,26 @@
 import React, { useState } from 'react';
 import '../styles/forms.css'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
-const Url="https://chat-nodejs-dev-xfqa.2.us-1.fl0.io/log/register"
 function Register (){
     const [req,setReq]=useState('')
-    const [responseData, setResponseData] = useState(null);
+    const {signup}= useAuth()
     const navigate=useNavigate()
+
     const handleRegister= async (event)=>{
         event.preventDefault()
         const {username,email,password}= Object.fromEntries(new window.FormData(event.target) )
         if(!email  || !username || !password) return setReq("LLena todo los campos")
         setReq("")
-        
+        const user= {username:username,email:email,password:password}
             try {
-                const response = await fetch(Url, {
-                method: 'POST', // Método de la solicitud
-                headers: {
-                  'Content-Type': 'application/json' // Tipo de contenido del cuerpo
-                },
-                body: JSON.stringify({ 
-                    username: username,
-                    email:email,
-                    password:password
-                }) 
-            });
-
-                const data = await response.json(); // Convertir la respuesta a JSON
-        
-                setResponseData(data); // Actualizar el estado con la respuesta recibida
-                console.log(data)
+                const res= await signup(user);
+                if (!res) setReq("Correo ya en uso") 
+                if(res) setReq("Creado exitosamente")
+                setTimeout(()=>{
+                    navigate("/")
+                },"2000")
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);
             }
@@ -63,7 +54,7 @@ function Register (){
                         }
                         </div>
                         <div className="form-group">
-                            <button onClick={e=>navigate("/")}>Login</button>
+                            <Link to="/">Sign in</Link>
                         </div>
                     </form>
                 </div>
