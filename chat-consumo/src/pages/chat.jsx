@@ -1,7 +1,8 @@
 import {io} from "socket.io-client"
 import '../styles/App.css'
 import { useAuth } from '../context/AuthContext';
-
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const socket = io("https://chat-nodejs-dev-xfqa.2.us-1.fl0.io")
 socket.on("message",(body)=>{
@@ -11,9 +12,15 @@ socket.on("message",(body)=>{
 })
 
 const  Chat= () =>{
-  const {isAuthenticated,user}=useAuth()
-  console.log(user,isAuthenticated)
-
+  const {isAuthenticated,setIsAuthenticated}=useAuth()
+  const navigate=useNavigate()
+    useEffect(()=>{
+        if(!isAuthenticated) navigate('/')
+    },[isAuthenticated])
+  const closeSession =()=>{
+    localStorage.removeItem('token');
+    setIsAuthenticated(false)
+  }
   const handleSubmit=(event)=>{
     event.preventDefault()
     if(!socket.connected) return
@@ -36,6 +43,7 @@ const  Chat= () =>{
           <button>Enviar</button>
         </form>
       </div>
+      <button onClick={closeSession}>Cerrar sesion</button>
     </main>
   )
 }

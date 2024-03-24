@@ -13,17 +13,19 @@ export const useAuth=()=>{
 export const AuthProvider=({children})=>{
     const [user,setUser]=useState(null)
     const [isAuthenticated,setIsAuthenticated]= useState(false)
-
+    
     useEffect(()=>{
-        console.log(localStorage.getItem('token'))
-    },[])
+        if(localStorage.getItem('token')){
+            setIsAuthenticated(true)
+        }
+
+    },[isAuthenticated])
     const signin= async (user)=>{
         try{
             const response = await loginRequest(user);
-            const cookieString = response.headers.get('Set-Cookie');
+            const cookieString = document.cookie
             const cookieValue = cookieString.split(';')[0].split('=')[1];
             localStorage.setItem('token', cookieValue);
-            console.log(cookies)
             const data = await response.json(); // Convertir la respuesta a JSON
             if (data.message) return data.message
             console.log(data)
@@ -50,7 +52,8 @@ export const AuthProvider=({children})=>{
             signup,
             signin,
             user,
-            isAuthenticated
+            isAuthenticated,
+            setIsAuthenticated
         }}>
             {children}
         </AuthContext.Provider>
