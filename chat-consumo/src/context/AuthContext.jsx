@@ -1,4 +1,4 @@
-import { createContext,useState,useContext } from "react";
+import { createContext,useState,useContext, useEffect } from "react";
 import { loginRequest, registerRequest } from "../api/auth";
 export const AuthContext =createContext()
 
@@ -14,9 +14,15 @@ export const AuthProvider=({children})=>{
     const [user,setUser]=useState(null)
     const [isAuthenticated,setIsAuthenticated]= useState(false)
 
+    useEffect(()=>{
+        console.log(document.cookie)    
+    },[])
     const signin= async (user)=>{
         try{
             const response = await loginRequest(user);
+            const cookies = response.headers.get('Set-Cookie');
+            localStorage.setItem('token', cookies);
+            console.log(cookies)
             const data = await response.json(); // Convertir la respuesta a JSON
             if (data.message) return data.message
             console.log(data)
@@ -37,6 +43,7 @@ export const AuthProvider=({children})=>{
         }
     }
     
+
     return(
         <AuthContext.Provider value={{
             signup,
