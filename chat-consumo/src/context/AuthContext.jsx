@@ -17,13 +17,15 @@ export const AuthProvider=({children})=>{
     useEffect(()=>{
         if(localStorage.getItem('token')){
             setIsAuthenticated(true)
+            console.log(localStorage.getItem('token'))
         }
 
-    },[isAuthenticated])
+    },[])
     const signin= async (user)=>{
         try{
             const response = await loginRequest(user);
             const cookieString = document.cookie
+            console.log(cookieString)
             const cookieValue = cookieString.split(';')[0].split('=')[1];
             localStorage.setItem('token', cookieValue);
             const data = await response.json(); // Convertir la respuesta a JSON
