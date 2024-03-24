@@ -5,9 +5,11 @@ import { useAuth } from '../context/AuthContext';
 
 function Register (){
     const [req,setReq]=useState('')
-    const {signup}= useAuth()
+    const {signup,isAuthenticated}= useAuth()
     const navigate=useNavigate()
-
+    useEffect(()=>{
+        if(isAuthenticated) navigate('/chat')
+    },[isAuthenticated])
     const handleRegister= async (event)=>{
         event.preventDefault()
         const {username,email,password}= Object.fromEntries(new window.FormData(event.target) )

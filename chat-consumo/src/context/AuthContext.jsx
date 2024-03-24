@@ -15,13 +15,14 @@ export const AuthProvider=({children})=>{
     const [isAuthenticated,setIsAuthenticated]= useState(false)
 
     useEffect(()=>{
-        console.log(document.cookie)    
+        console.log(localStorage.getItem('token'))
     },[])
     const signin= async (user)=>{
         try{
             const response = await loginRequest(user);
-            const cookies = response.headers.get('Set-Cookie');
-            localStorage.setItem('token', cookies);
+            const cookieString = response.headers.get('Set-Cookie');
+            const cookieValue = cookieString.split(';')[0].split('=')[1];
+            localStorage.setItem('token', cookieValue);
             console.log(cookies)
             const data = await response.json(); // Convertir la respuesta a JSON
             if (data.message) return data.message
