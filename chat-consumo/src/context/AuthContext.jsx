@@ -18,7 +18,7 @@ export const AuthProvider=({children})=>{
         try{
             const response = await loginRequest(user);
             const data = await response.json(); // Convertir la respuesta a JSON
-            if (data.message) return
+            if (data.message) return data.message
             console.log(data)
             setUser(data)
             setIsAuthenticated(true)

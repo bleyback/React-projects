@@ -19,8 +19,8 @@ function Login (){
         setReq("")
         const user= {email:email,password:password}
         try {
-            signup(user);
-            setReq("Datos incorrectos")
+            const res = await signup(user);
+            if (res) setReq(res)
         } catch (error) {
             console.error('Error al realizar la solicitud:', error);
         }
